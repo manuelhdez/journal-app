@@ -1,28 +1,27 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useForm } from "hooks/useForm";
 import {
-  login,
   startLoginWithEmailAndPassword,
   startLoginWithGoogle,
 } from "actions/auth";
 
 export const LoginScreen = () => {
   const dispatch = useDispatch();
+  const { ui } = useSelector((state) => state);
 
   const [formValues, handleInputChange] = useForm({
-    email: "yo@example.com",
-    password: "123456",
+    email: "hernandez@treiteksolutions.com",
+    password: "1234567",
   });
 
   const { email, password } = formValues;
 
   const handleLogin = (e) => {
     e.preventDefault();
-    //dispatch(login(12345, "Manuelito"));
-    // dispatch(startLoginWithEmailAndPassword(email, password));
+    dispatch(startLoginWithEmailAndPassword(email, password));
   };
 
   const handleLoginWithGoogle = () => {
@@ -52,7 +51,8 @@ export const LoginScreen = () => {
           value={password}
           onChange={handleInputChange}
         />
-        <button className="btn btn-primary" type="submit" disabled={false}>
+        {JSON.stringify(ui.loading)}
+        <button className="btn btn-primary" type="submit" disabled={ui.loading}>
           Login
         </button>
 
