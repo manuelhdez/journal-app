@@ -14,7 +14,7 @@ export const LoginScreen = () => {
 
   const [formValues, handleInputChange] = useForm({
     email: "hernandez@treiteksolutions.com",
-    password: "1234567",
+    password: "123456",
   });
 
   const { email, password } = formValues;
@@ -42,6 +42,7 @@ export const LoginScreen = () => {
           value={email}
           onChange={handleInputChange}
         />
+
         <input
           className="auth__input"
           type="password"
@@ -51,7 +52,7 @@ export const LoginScreen = () => {
           value={password}
           onChange={handleInputChange}
         />
-        {JSON.stringify(ui.loading)}
+
         <button className="btn btn-primary" type="submit" disabled={ui.loading}>
           Login
         </button>
