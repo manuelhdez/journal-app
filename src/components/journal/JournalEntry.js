@@ -1,27 +1,43 @@
 import React from "react";
+import moment from "moment";
+import { useDispatch } from "react-redux";
+import { activeNote } from "actions/notes";
 
-export const JournalEntry = () => {
+export const JournalEntry = ({ id, date, title, body, url }) => {
+  const dispatch = useDispatch();
+
+  const noteDate = moment(date);
+
+  const handleEntryClick = () => {
+    const note = {
+      title,
+      body,
+      date,
+    };
+    dispatch(activeNote(id, note));
+  };
+
   return (
-    <div className="journal__entry">
-      <div
-        className="journal__entry-picture"
-        style={{
-          backgroundColor: "cover",
-          backgroundImage:
-            "url('https://avirato.com/wp-content/uploads/2020/02/placeholder-300x200.png')",
-        }}
-      ></div>
+    <div className="journal__entry" onClick={handleEntryClick}>
+      {url && (
+        <div
+          className="journal__entry-picture"
+          style={{
+            backgroundColor: "cover",
+            backgroundImage:
+              "url('https://avirato.com/wp-content/uploads/2020/02/placeholder-300x200.png')",
+          }}
+        ></div>
+      )}
 
       <div className="journal__entry-body">
-        <p className="journal__entry-title">Algo</p>
-        <p className="journal__entry-content">
-          lokjh lkfjhsd lfjhsd lkfhsdlk fhsdlfkh sdlkfjhsd lfkjhsdlf kjhdsfrem
-        </p>
+        <p className="journal__entry-title">{title}</p>
+        <p className="journal__entry-content">{body}</p>
       </div>
 
       <div className="journal__entry-datebox">
-        <span>Monday</span>
-        <h4>28</h4>
+        <span>{noteDate.format("dddd")}</span>
+        <h4>{noteDate.format("Do")}</h4>
       </div>
     </div>
   );
