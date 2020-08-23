@@ -2,6 +2,7 @@ import { db } from "./../firebase/firebaseConfig";
 import { types } from "types/types";
 import { loadNotes } from "helpers/loadNotes";
 import Swal from "sweetalert2";
+import { uploadToCloudinary } from "helpers/fileUpload";
 
 export const startNewNote = () => {
   return async (dispatch, getState) => {
@@ -42,6 +43,7 @@ export const setNotes = (notes) => ({
 });
 
 export const startSaveNote = (note) => {
+  console.log("NOTE", note);
   return async (dispatch, state) => {
     const { uid } = state().auth;
 
@@ -61,3 +63,24 @@ export const updateLocalNote = (id, note) => ({
     note: { id, ...note },
   },
 });
+
+export const startUploadPicture = (file) => {
+  return async (dispatch, getState) => {
+    const { active: activeNote } = getState().notes;
+
+    Swal.fire({
+      title: "Uploading...",
+      text: "Please wait.",
+      allowOutsideClick: false,
+      onBeforeOpen: () => {
+        Swal.showLoading();
+      },
+    });
+
+    const fileUrl = await uploadToCloudinary(file);
+    activeNote.url = fileUrl;
+    dispatch(startSaveNote(activeNote));
+
+    Swal.close();
+  };
+};

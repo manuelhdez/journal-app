@@ -13,6 +13,7 @@ export const NoteScreen = () => {
   const activeId = useRef(note.id);
 
   useEffect(() => {
+    console.log(note);
     if (note.id !== activeId.current) {
       reset(note);
       activeId.current = note.id;
@@ -47,13 +48,10 @@ export const NoteScreen = () => {
           value={body}
           onChange={handleInputChange}
         ></textarea>
-
+        <h2>{note.url}</h2>
         {note.url && (
           <div className="notes__img">
-            <img
-              src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-              alt="Imagen"
-            />
+            <img src={`${note.url}`} alt="Imagen" />
           </div>
         )}
       </div>

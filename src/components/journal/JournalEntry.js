@@ -13,6 +13,7 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
       title,
       body,
       date,
+      url,
     };
     dispatch(activeNote(id, note));
   };
@@ -24,8 +25,7 @@ export const JournalEntry = ({ id, date, title, body, url }) => {
           className="journal__entry-picture"
           style={{
             backgroundColor: "cover",
-            backgroundImage:
-              "url('https://avirato.com/wp-content/uploads/2020/02/placeholder-300x200.png')",
+            backgroundImage: `url("${url}")`,
           }}
         ></div>
       )}
