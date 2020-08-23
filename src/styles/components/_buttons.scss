@@ -22,6 +22,14 @@
   &:hover {
     background-color: darken($color: $primary, $amount: 15);
   }
+
+  &.btn-danger {
+    background-color: red;
+
+    &:hover {
+      background-color: darken($color: red, $amount: 15);
+    }
+  }
 }
 
 .google-btn {
